@@ -210,33 +210,56 @@
 /* Start cert-item */
 .card {
   background-color: var(--secondary);
-  padding: 2rem;
-  text-align: center;
+  border: none;
+  border-radius: 8px;
+  padding: 0 !important; /* Menghilangkan padding agar gambar mepet rapi */
 }
 
 .image-wrapper {
-  width: 155px;
-  height: 115px;
-  margin: 0 auto 1rem;
+  width: 100%;
+  height: 220px; /* Tinggi kotak kontainer gambar sertifikat */
+  margin: 0;
   background-color: #ffffff;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* ini penting agar gambar tidak keluar */
+  overflow: hidden;
+  position: relative;
 }
 
 .certificate-image {
-  width: 80px;
-  height: auto;
-  transition: transform 0.3s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Agar sertifikat full terlihat jelas tanpa terpotong */
+  background-color: #ffffff;
 }
 
-.image-wrapper:hover .certificate-image {
-  transform: scale(2); /* zoom in tapi tetap di dalam wrapper */
+/* Overlay Hitam Transparan & Teks */
+.img-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(37, 51, 66, 0.75) !important;
+  opacity: 0; /* Tersembunyi di awal sebelum di-hover */
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
 }
 
+/* Transisi Zoom Gambar */
+.transition-transform {
+  transition: transform 0.4s ease-in-out;
+}
+
+/* Efek Ketika Kartu Disorot Mouse (Hover) */
+.card:hover .certificate-image {
+  transform: scale(1.05);
+}
+
+.card:hover .img-overlay {
+  opacity: 1; /* Memunculkan overlay teks secara halus */
+}
 /* End cert-item */
 
 ul {
@@ -246,34 +269,41 @@ ul {
 /* Strart  timeline */
 
 /* End  timeline */
+/* ==========================================================================
+   PERBAIKAN STRUKTUR & KESERAGAMAN GAMBAR PORTOFOLIO (100% AMAN & RAPI)
+   ========================================================================== */
+
+/* Jarak otomatis antar baris gambar ke bawah */
+.portfolio-container .portfolio-item {
+    margin-bottom: 30px !important;
+}
+
+/* Memaksa semua kotak pembungkus gambar memiliki ukuran tinggi yang sama */
+.portfolio-container .position-relative.overflow-hidden {
+    border-radius: 8px; /* Membuat sudut gambar sedikit melengkung halus */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Memberikan efek bayangan modern */
+    height: 250px !important; /* TINGGI SEMUA GAMBAR DIJAMIN SAMA RATA */
+    width: 100%;
+    background-color: #2c3e50; /* Warna dasar pelindung */
+}
+
+/* Mengatur gambar asli di dalamnya agar otomatis terpotong rapi tanpa gepeng */
+.portfolio-container .portfolio-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover !important; /* Memotong gambar secara proporsional tepat di tengah */
+    object-position: center !important;
+    transition: transform 0.4s ease-in-out;
+}
+
+/* Efek interaktif zoom halus saat gambar disorot kursor mouse (Hover) */
+.portfolio-item:hover img {
+    transform: scale(1.05);
+}
+
+/* Memperbaiki ukuran background hitam transparan tombol plus (+) agar pas di kotak */
 .portfolio-item .portfolio-btn {
-  position: absolute;
-  width: 0;
-  height: 0;
-  top: 50%;
-  left: 50%;
-  font-size: 90px;
-  background: rgba(44, 62, 80, 0.9);
-  opacity: 0;
-  transition: 0.5s;
-}
-
-.portfolio-item:hover .portfolio-btn {
-  opacity: 1;
-  width: calc(100% - 60px);
-  height: calc(100% - 60px);
-  top: 30px;
-  left: 30px;
-}
-
-.portfolio-item i {
-  opacity: 0;
-  transition: 0.3s;
-  transition-delay: 0.3s;
-}
-
-.portfolio-item:hover i {
-  opacity: 1;
+    border-radius: 8px;
 }
 
 .testimonial-carousel .owl-dots {
